@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Directory Search Tool</title>
+  <style>
+    body {
+      font-family: Consolas, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* Align items to the top */
+      height: 100vh;
+      margin: 0;
+      background-color: #0d0d0d;
+      color: #33ff33;
+      padding: 20px;
+      flex-wrap: wrap; /* Allow items to wrap */
+    }
+    .container {
+      text-align: center;
+      max-width: 500px;
+      padding: 2rem;
+      border: 2px solid #33ff33;
+      background: #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #33ff33;
+      margin-bottom: 20px;
+      flex: 1 1 300px; /* Allow flexibility */
+      max-width: 400px; /* Max width for the container */
+    }
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+    input, select, button {
+      margin: 0.8rem 0;
+      padding: 0.8rem;
+      width: 100%;
+      font-family: Consolas, monospace;
+      border: 1px solid #33ff33;
+      border-radius: 5px;
+      background: #0d0d0d;
+      color: #33ff33;
+      font-size: 1rem;
+      transition: background 0.3s, color 0.3s;
+    }
+    button {
+      background-color: #33ff33;
+      color: #0d0d0d;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0d0d0d;
+      color: #33ff33;
+    }
+    #queryOutput {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #33ff33;
+    }
+    .switch-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: #fff;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #33ff33;
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    .manual {
+      max-width: 400px;
+      background: #1a1a1a;
+      padding: 1rem;
+      border: 1px solid #33ff33;
+      border-radius: 5px;
+      margin-left: 20px; /* Add space between container and manual */
+    }
+    @media (max-width: 800px) {
+      body {
+        flex-direction: column; /* Stack elements on smaller screens */
+        align-items: center;
+      }
+      .manual {
+        margin-left: 0; /* Reset margin on small screens */
+        margin-top: 20px; /* Add some spacing at the top */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💻 Open Directory Search Tool</h1>
+    <p>Select your search mode below:</p>
+    
+    <div class="switch-container">
+      <label class="switch">
+        <input type="checkbox" id="searchMode" checked>
+        <span class="slider"></span>
+      </label>
+      <span id="searchModeLabel">Open Directory Search</span>
+    </div>
+
+    <select id="fileType">
+      <option value="mp3|wav|ac3|ogg|flac|wma|m4a|aac|mod">Audio Files</option>
+      <option value="sql|db|bak">Database Files</option>
+      <option value="doc|docx|pdf|txt">Documents</option>
+      <option value="robots.txt|sitemap.xml">Web Config Files</option>
+      <option value="zip|rar|7z|tar|gz">Compressed Files</option>
+      <option value="jpg|jpeg|png|bmp|gif|tiff">Images</option>
+      <option value="pdf|epub|mobi">Books</option>
+      <option value="mp3|aac|flac|wav">Songs</option>
+    </select>
+
+    <input type="text" id="keywords" placeholder="Enter keywords (optional)">
+    
+    <button onclick="generateQuery()">Generate and Search</button>
+    
+    <p id="queryOutput"></p>
+  </div>
+
+  <div class="manual">
+    <h2>Simple Manual</h2>
+    <p>
+      This tool helps you find files in open directories on the internet.
+      <br><br>
+      Here’s how to use it:
+    </p>
+    <ul>
+      <li><strong>Select a Search Mode:</strong> Use the switch to choose if you want to search for open directories or just file types.</li>
+      <li><strong>Choose a File Type:</strong> Pick a type of file from the dropdown menu (like audio, documents, etc.).</li>
+      <li><strong>Keywords:</strong> You can enter specific words to refine your search, but it’s not necessary.</li>
+      <li><strong>Start Searching:</strong> Click the button to generate the search query and find results.</li>
+    </ul>
+    <p>
+      That’s it! You’ll see the results in a new tab.
+    </p>
+  </div>
+
+  <script>
+    function generateQuery() {
+      const keywords = encodeURIComponent(document.getElementById('keywords').value.trim());
+      const fileType = document.getElementById('fileType').value;
+      const searchMode = document.getElementById('searchMode').checked;
+
+      const baseQuery = `(${fileType}) -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:"index of" -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|index-of|wallywashis|downloadmana)`;
+      const query = searchMode ? `${keywords ? keywords + ' + ' : ''}${baseQuery}` : baseQuery;
+      
+      const googleSearchUrl = `https://www.google.com/search?q=${query}`;
+      
+      window.open(googleSearchUrl, '_blank');
+      document.getElementById('queryOutput').innerText = "Searching Google...";
+    }
+
+    // Update label based on switch state
+    document.getElementById('searchMode').addEventListener('change', function() {
+      document.getElementById('searchModeLabel').innerText = this.checked ? 'Open Directory Search' : 'File Type Only Search';
+    });
+  </script>
+</body>
+</html>
