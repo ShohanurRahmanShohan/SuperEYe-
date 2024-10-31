@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> SuperEYe</title>
+  <title>SuperEYe</title>
   <style>
     body {
       font-family: Consolas, monospace;
       display: flex;
       justify-content: center;
-      align-items: flex-start; /* Align items to the top */
+      align-items: flex-start;
       height: 100vh;
       margin: 0;
       background-color: #0d0d0d;
       color: #33ff33;
       padding: 20px;
-      flex-wrap: wrap; /* Allow items to wrap */
+      flex-wrap: wrap; 
     }
     .container {
       text-align: center;
@@ -26,8 +26,8 @@
       border-radius: 10px;
       box-shadow: 0 0 20px #33ff33;
       margin-bottom: 20px;
-      flex: 1 1 300px; /* Allow flexibility */
-      max-width: 400px; /* Max width for the container */
+      flex: 1 1 300px;
+      max-width: 400px;
     }
     h1 {
       margin-bottom: 1rem;
@@ -112,16 +112,16 @@
       padding: 1rem;
       border: 1px solid #33ff33;
       border-radius: 5px;
-      margin-left: 20px; /* Add space between container and manual */
+      margin-left: 20px; 
     }
     @media (max-width: 800px) {
       body {
-        flex-direction: column; /* Stack elements on smaller screens */
+        flex-direction: column;
         align-items: center;
       }
       .manual {
-        margin-left: 0; /* Reset margin on small screens */
-        margin-top: 20px; /* Add some spacing at the top */
+        margin-left: 0; 
+        margin-top: 20px;
       }
     }
   </style>
@@ -147,6 +147,7 @@
       <option value="zip|rar|7z|tar|gz">Compressed Files</option>
       <option value="jpg|jpeg|png|bmp|gif|tiff">Images</option>
       <option value="pdf|epub|mobi">Books</option>
+      <option value="mp4|mkv|avi|mov|wmv|flv">Video Files</option>
       <option value="mp3|aac|flac|wav">Songs</option>
     </select>
 
@@ -166,7 +167,7 @@
     </p>
     <ul>
       <li><strong>Select a Search Mode:</strong> Use the switch to choose if you want to search for open directories or just file types.</li>
-      <li><strong>Choose a File Type:</strong> Pick a type of file from the dropdown menu (like audio, documents, etc.).</li>
+      <li><strong>Choose a File Type:</strong> Pick a type of file from the dropdown menu (like audio, video, documents, etc.).</li>
       <li><strong>Keywords:</strong> You can enter specific words to refine your search, but it’s not necessary.</li>
       <li><strong>Start Searching:</strong> Click the button to generate the search query and find results.</li>
     </ul>
@@ -190,7 +191,6 @@
       document.getElementById('queryOutput').innerText = "Searching Google...";
     }
 
-    // Update label based on switch state
     document.getElementById('searchMode').addEventListener('change', function() {
       document.getElementById('searchModeLabel').innerText = this.checked ? 'Open Directory Search' : 'File Type Only Search';
     });
