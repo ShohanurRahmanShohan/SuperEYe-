@@ -124,6 +124,12 @@
         margin-top: 20px; /* Add some spacing at the top */
       }
     }
+    footer {
+      width: 100%;
+      text-align: center;
+      margin-top: 20px;
+      color: #33ff33;
+    }
   </style>
 </head>
 <body>
@@ -147,8 +153,8 @@
       <option value="zip|rar|7z|tar|gz">Compressed Files</option>
       <option value="jpg|jpeg|png|bmp|gif|tiff">Images</option>
       <option value="pdf|epub|mobi">Books</option>
-      <option value="mp4|mkv|avi|mov|wmv|flv">Video Files</option>
       <option value="mp3|aac|flac|wav">Songs</option>
+      <option value="mp4|avi|mkv|mov|flv">Videos</option> <!-- Added video option -->
     </select>
 
     <input type="text" id="keywords" placeholder="Enter keywords (optional)">
@@ -167,7 +173,7 @@
     </p>
     <ul>
       <li><strong>Select a Search Mode:</strong> Use the switch to choose if you want to search for open directories or just file types.</li>
-      <li><strong>Choose a File Type:</strong> Pick a type of file from the dropdown menu (like audio, video, documents, etc.).</li>
+      <li><strong>Choose a File Type:</strong> Pick a type of file from the dropdown menu (like audio, documents, etc.).</li>
       <li><strong>Keywords:</strong> You can enter specific words to refine your search, but it’s not necessary.</li>
       <li><strong>Start Searching:</strong> Click the button to generate the search query and find results.</li>
     </ul>
@@ -175,9 +181,11 @@
       That’s it! You’ll see the results in a new tab.
     </p>
   </div>
-   <footer>
+
+  <footer>
     <p>Made with ❤️ by <a href="https://github.com/ShohanurRahmanShohan" style="color: #33ff33;">Shohan</a></p>
   </footer>
+
   <script>
     function generateQuery() {
       const keywords = encodeURIComponent(document.getElementById('keywords').value.trim());
