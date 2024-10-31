@@ -1,4 +1,5 @@
 # SuperEYe
+[Website](https://shohanurrahmanshohan.github.io/SuperEYe-/)
 
 **SuperEYe** is a straightforward tool for searching files in open directories on the web. It allows users to enter keywords and select file types to generate targeted Google search queries.
 
