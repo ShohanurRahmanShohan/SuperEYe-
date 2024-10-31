@@ -9,13 +9,13 @@
       font-family: Consolas, monospace;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: flex-start; /* Align items to the top */
       height: 100vh;
       margin: 0;
       background-color: #0d0d0d;
       color: #33ff33;
       padding: 20px;
-      flex-wrap: wrap; 
+      flex-wrap: wrap; /* Allow items to wrap */
     }
     .container {
       text-align: center;
@@ -26,8 +26,7 @@
       border-radius: 10px;
       box-shadow: 0 0 20px #33ff33;
       margin-bottom: 20px;
-      flex: 1 1 300px;
-      max-width: 400px;
+      flex: 1 1 300px; /* Allow flexibility */
     }
     h1 {
       margin-bottom: 1rem;
@@ -112,17 +111,28 @@
       padding: 1rem;
       border: 1px solid #33ff33;
       border-radius: 5px;
-      margin-left: 20px; 
+      margin-left: 20px; /* Add space between container and manual */
     }
-    @media (max-width: 800px) {
+    @media (max-width: 600px) {
       body {
-        flex-direction: column;
+        flex-direction: column; /* Stack elements on smaller screens */
         align-items: center;
       }
-      .manual {
-        margin-left: 0; 
-        margin-top: 20px;
+      .container, .manual {
+        width: 90%; /* Full width for small screens */
+        max-width: 90%; /* Prevent too wide */
+        margin: 0; /* Reset margins */
       }
+      .manual {
+        margin-top: 20px; /* Add some spacing at the top */
+        margin-left: 0; /* Reset margin on small screens */
+      }
+    }
+    footer {
+      width: 100%;
+      text-align: center;
+      margin-top: 20px;
+      color: #33ff33;
     }
   </style>
 </head>
@@ -147,8 +157,8 @@
       <option value="zip|rar|7z|tar|gz">Compressed Files</option>
       <option value="jpg|jpeg|png|bmp|gif|tiff">Images</option>
       <option value="pdf|epub|mobi">Books</option>
-      <option value="mp4|mkv|avi|mov|wmv|flv">Video Files</option>
       <option value="mp3|aac|flac|wav">Songs</option>
+      <option value="mp4|avi|mkv|mov|flv">Videos</option> <!-- Added video option -->
     </select>
 
     <input type="text" id="keywords" placeholder="Enter keywords (optional)">
@@ -167,7 +177,7 @@
     </p>
     <ul>
       <li><strong>Select a Search Mode:</strong> Use the switch to choose if you want to search for open directories or just file types.</li>
-      <li><strong>Choose a File Type:</strong> Pick a type of file from the dropdown menu (like audio, video, documents, etc.).</li>
+      <li><strong>Choose a File Type:</strong> Pick a type of file from the dropdown menu (like audio, documents, etc.).</li>
       <li><strong>Keywords:</strong> You can enter specific words to refine your search, but it’s not necessary.</li>
       <li><strong>Start Searching:</strong> Click the button to generate the search query and find results.</li>
     </ul>
@@ -175,6 +185,10 @@
       That’s it! You’ll see the results in a new tab.
     </p>
   </div>
+
+  <footer>
+    <p>Made with ❤️ by <a href="https://github.com/ShohanurRahmanShohan" style="color: #33ff33;">Shohan</a></p>
+  </footer>
 
   <script>
     function generateQuery() {
@@ -191,6 +205,7 @@
       document.getElementById('queryOutput').innerText = "Searching Google...";
     }
 
+    // Update label based on switch state
     document.getElementById('searchMode').addEventListener('change', function() {
       document.getElementById('searchModeLabel').innerText = this.checked ? 'Open Directory Search' : 'File Type Only Search';
     });
