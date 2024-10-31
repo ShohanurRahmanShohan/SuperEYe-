@@ -27,7 +27,6 @@
       box-shadow: 0 0 20px #33ff33;
       margin-bottom: 20px;
       flex: 1 1 300px; /* Allow flexibility */
-      max-width: 400px; /* Max width for the container */
     }
     h1 {
       margin-bottom: 1rem;
@@ -114,14 +113,19 @@
       border-radius: 5px;
       margin-left: 20px; /* Add space between container and manual */
     }
-    @media (max-width: 800px) {
+    @media (max-width: 600px) {
       body {
         flex-direction: column; /* Stack elements on smaller screens */
         align-items: center;
       }
+      .container, .manual {
+        width: 90%; /* Full width for small screens */
+        max-width: 90%; /* Prevent too wide */
+        margin: 0; /* Reset margins */
+      }
       .manual {
-        margin-left: 0; /* Reset margin on small screens */
         margin-top: 20px; /* Add some spacing at the top */
+        margin-left: 0; /* Reset margin on small screens */
       }
     }
     footer {
